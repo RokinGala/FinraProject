@@ -6,15 +6,9 @@ package com.Finra.Rokin.Test;
  *
  */
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-//import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +37,7 @@ public List<String> letterCombinations(String digits) {
         
         List<String> result= new ArrayList<String>();
         List<String> temp= new ArrayList<String>();
-        List<String> eachLetter = new ArrayList<String>();
+       
         if(digits.isEmpty()){
             return result;
         }
@@ -53,20 +47,10 @@ public List<String> letterCombinations(String digits) {
             String[] arr=getMapping(digits.charAt(i));
             
             String num=digits;
-            // Loop to replace indivdiual digits with Letter;
-            for(String arrStr:arr){
-        	String oneStr=num.substring(0,i)+ arrStr+(num.substring(i+1,digits.length()));
-        	 eachLetter.add(oneStr);	
-        	 
-            }
+
             // This is loop running over the getting all the strings for each number and then replacing 
             // The number with all combinations of the letters.
                 for(String str:result){
-                	if(!str.isEmpty()){
-                		int j= num.length()-str.length();
-                		String replace= num.substring(0,j)+str;
-                		eachLetter.add(replace);
-                	}
                     for(String arrStr:arr){
                         String s=arrStr+str;
                         temp.add(s);
@@ -75,26 +59,31 @@ public List<String> letterCombinations(String digits) {
                 // Adding complete String
                 result=temp;
                 temp=new ArrayList<String>();
-           
-            
-            
-            
+    
         }
-        result.addAll(eachLetter);
+    
+       Collections.sort(result);
+       
       return result;
     }
+/**
+ * The Method returns the string mapping of digits.
+ * Have included the digits also to achieve all possible Alpha numeric combination
+ * @param digit
+ * @return
+ */
 	 public String[]  getMapping(char digit){
 	        
 	        switch(digit){
 	                
-	            case '2': return new String[]{"a","b","c"};
-	            case '3': return new String[]{"d","e","f"};
-	            case '4': return new String[]{"g","h","i"};
-	            case '5': return new String[]{"j","k","l"};
-	            case '6': return new String[]{"m","n","o"};
-	            case '7': return new String[]{"p","q","r","s"};
-	            case '8': return new String[]{"t","u","v"};
-	            case '9': return new String[]{"w","x","y","z"};
+	            case '2': return new String[]{"2","a","b","c"};
+	            case '3': return new String[]{"3","d","e","f"};
+	            case '4': return new String[]{"4","g","h","i"};
+	            case '5': return new String[]{"5","j","k","l"};
+	            case '6': return new String[]{"6","m","n","o"};
+	            case '7': return new String[]{"7","p","q","r","s"};
+	            case '8': return new String[]{"8","t","u","v"};
+	            case '9': return new String[]{"9","w","x","y","z"};
 	            case '1': return new String[]{"1"};
 	            case '0': return new String[]{"0"};
 	                
