@@ -21,6 +21,9 @@ public class PhoneNumberController {
 	public PhoneNumberObj getAllMapping(@RequestParam(value = "phoneNumber", required = true)String phoneNumber){
 		List<String> mappings = new ArrayList<String>();
 		
+		if(phoneNumber.length()!=7 || phoneNumber.length()!=10){
+			return new PhoneNumberObj("Failed","Incorrect Phone Number","Entered phone number is not correct.");
+		}
 		
 		//mappings.add(phoneNumber);
 		mappings=letterCombinations(phoneNumber);
